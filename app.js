@@ -39,6 +39,7 @@ const port = 5000
 //spin up the server only when successfully able to connect to db
 //create function for it
 
+//asynchronous because first connect to the database
 const start = async () =>{
 	try{
 		console.log('Waiting to connect to MongoDB using Mongoose...')

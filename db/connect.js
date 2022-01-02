@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //not good practice to expose the password
 //so use .env file and set the variables for it
-// const connectionString = 'mongodb+srv://abhay:1234@nodeexpressproject.vbysn.mongodb.net/TASK-MANAGER?retryWrites=true&w=majority'
+// const connectionString = 'mongodb+srv://abhay:<password>@nodeexpressproject.vbysn.mongodb.net/TASK-MANAGER?retryWrites=true&w=majority'
 
 
 //create a function that gets called by the app.js
