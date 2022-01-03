@@ -39,18 +39,57 @@ const createTask = async (req, res)=>{
 }
 
 //3. get single task
-const getSingleTask = (req, res) =>{
-	res.send('get single task')
+const getSingleTask = async (req, res) =>{
+	try{
+		const taskID = req.params.id //get task id from request
+		//or
+		// const {id: taskID} = req.params
+		const task = await Task.findOne({_id: taskID}) //search for that specific task
+		if(!task){
+			//always use return, incase of the object not found orelse continues with below code execution
+			return res.status(404).json({ msg: `No task with id : ${taskID} found`})
+		}
+		res.status(200).json({task})
+	}
+	catch(error){
+		res.status(500).json({msg: error})
+	}
 }
 
 //4. update a task
-const updateTask = (req, res) =>{
-	res.send('update a task')
+const updateTask = async (req, res) =>{
+	try{
+		const {id: taskID} = req.params
+		//req.body has the values that are to be updated
+		const task = await Task.findOneAndUpdate({_id: taskID}, req.body, {
+			new: true, //always returns back the updated object
+			runValidators: true, //runs a check with the validators that are associated with the schema
+		})
+
+		if(!task){
+			return res.status(404).json({msg: `No task with id : ${taskID} found`})
+		}
+
+		res.status(200).json({task})
+	}
+	catch(error){
+		res.status(500).json({msg: error})
+	}
 }
 
 //5. delete a task
-const deleteTask = (req, res) =>{
-	res.send('delete a task')
+const deleteTask = async (req, res) =>{
+	try{
+		const {id: taskID} = req.params
+		const task = await Task.findOneAndDelete({_id: taskID})
+		if(!task){
+			return res.status(404).json({msg: `No task with id ${taskID} found` })
+		}
+		res.status(200).json({task})
+	}
+	catch(error){
+		res.status(500).json({msg: error})
+	}
 }
 
 //exporting as an object

@@ -15,13 +15,16 @@ require('dotenv').config()
 
 //middleware
 //this middleware is used, because data would be received in the form json 
+
+//now to use the static objects which are here the frontend code in the public folder, use middleware
+app.use(express.static('./public'))
 app.use(express.json())
 //routes
 
 //basic hello get request
-app.get('/hello', (req, res) => {
-	res.send('Task Manager App')
-})
+// app.get('/hello', (req, res) => {
+// 	res.send('Task Manager App')
+// })
 
 //it uses the tasks route
 app.use('/api/v1/tasks', tasks)
